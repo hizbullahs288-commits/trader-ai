@@ -1,0 +1,6 @@
+{
+  "name": "TradePulse",
+  "description": "AI-powered trading assistant with real-time market charts, technical indicators, risk calculator, paper trading, and trading journal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

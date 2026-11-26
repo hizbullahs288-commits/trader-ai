@@ -1,0 +1,251 @@
+{
+  "entities": {
+    "UserAccount": {
+      "title": "UserAccount",
+      "description": "Virtual paper trading account summary and risk preferences for a user.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase Auth UID of the account owner."
+        },
+        "virtualBalance": {
+          "type": "number",
+          "description": "Available virtual USD cash balance for paper trading."
+        },
+        "initialCapital": {
+          "type": "number",
+          "description": "Starting virtual capital for return calculation."
+        },
+        "realizedPnl": {
+          "type": "number",
+          "description": "Cumulative realized profit or loss in USD."
+        },
+        "totalTrades": {
+          "type": "integer",
+          "description": "Total number of closed paper trades."
+        },
+        "winningTrades": {
+          "type": "integer",
+          "description": "Count of profitable closed paper trades."
+        },
+        "defaultRiskPercent": {
+          "type": "number",
+          "description": "Default risk percentage per trade for position sizing."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when account was initialized (FieldValue.serverTimestamp)."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the last account update (FieldValue.serverTimestamp)."
+        }
+      },
+      "required": [
+        "userId",
+        "virtualBalance",
+        "initialCapital",
+        "realizedPnl",
+        "totalTrades",
+        "winningTrades",
+        "defaultRiskPercent",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "PaperPosition": {
+      "title": "PaperPosition",
+      "description": "Simulated paper trading position (open or closed) with virtual money.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase Auth UID of the trader."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "Market ticker symbol (e.g., BTC-USD, EURUSD=X, AAPL, GC=F)."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Human-readable instrument name."
+        },
+        "assetClass": {
+          "type": "string",
+          "enum": ["CRYPTO", "FOREX", "STOCKS", "GOLD"],
+          "description": "Asset class category."
+        },
+        "side": {
+          "type": "string",
+          "enum": ["LONG", "SHORT"],
+          "description": "Position direction."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["OPEN", "CLOSED"],
+          "description": "Lifecycle status of the position."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Position size in units/shares/ounces."
+        },
+        "entryPrice": {
+          "type": "number",
+          "description": "Execution entry price."
+        },
+        "stopLoss": {
+          "type": "number",
+          "description": "Optional stop-loss price."
+        },
+        "takeProfit": {
+          "type": "number",
+          "description": "Optional take-profit price."
+        },
+        "exitPrice": {
+          "type": "number",
+          "description": "Execution exit price when closed."
+        },
+        "realizedPnl": {
+          "type": "number",
+          "description": "Realized profit or loss in USD when closed."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional trade setup notes."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of order execution."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of last modification."
+        },
+        "closedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when position was closed."
+        }
+      },
+      "required": [
+        "userId",
+        "symbol",
+        "displayName",
+        "assetClass",
+        "side",
+        "status",
+        "quantity",
+        "entryPrice",
+        "notes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "JournalEntry": {
+      "title": "JournalEntry",
+      "description": "Trading journal log entry for performance analytics and self-review.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase Auth UID of the trader."
+        },
+        "symbol": {
+          "type": "string",
+          "description": "Traded market ticker symbol."
+        },
+        "assetClass": {
+          "type": "string",
+          "enum": ["CRYPTO", "FOREX", "STOCKS", "GOLD"],
+          "description": "Asset class category."
+        },
+        "side": {
+          "type": "string",
+          "enum": ["LONG", "SHORT"],
+          "description": "Trade direction."
+        },
+        "entryPrice": {
+          "type": "number",
+          "description": "Entry price."
+        },
+        "exitPrice": {
+          "type": "number",
+          "description": "Exit price."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Position size."
+        },
+        "pnlAmount": {
+          "type": "number",
+          "description": "Realized profit or loss in USD."
+        },
+        "pnlPercent": {
+          "type": "number",
+          "description": "Return percentage on the trade."
+        },
+        "strategyTag": {
+          "type": "string",
+          "description": "Setup or strategy classification tag."
+        },
+        "emotionTag": {
+          "type": "string",
+          "description": "Trader mindset tag."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Trade thesis and post-trade lessons."
+        },
+        "linkedPositionId": {
+          "type": "string",
+          "description": "Optional linked paper position document ID."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when entry was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when entry was last updated."
+        }
+      },
+      "required": [
+        "userId",
+        "symbol",
+        "assetClass",
+        "side",
+        "entryPrice",
+        "exitPrice",
+        "quantity",
+        "pnlAmount",
+        "pnlPercent",
+        "strategyTag",
+        "emotionTag",
+        "notes",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserAccount" },
+      "description": "User's virtual paper trading account summary and preferences."
+    },
+    "/users/{userId}/positions/{positionId}": {
+      "schema": { "$ref": "#/entities/PaperPosition" },
+      "description": "User's open and closed paper trading positions."
+    },
+    "/users/{userId}/journal/{entryId}": {
+      "schema": { "$ref": "#/entities/JournalEntry" },
+      "description": "User's trading journal entries and analytics history."
+    }
+  }
+}
